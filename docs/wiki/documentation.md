@@ -55,3 +55,11 @@ Ejemplo: `POST /sport/1  {Informática}`
 --|--|--
 `id: String` <br> Id del sport | `CREATED (201)` | `BAD_REQUEST(400) {"error":"SportNotExistsInvalidException"}`
 
+## Eliminar sport `PUT /user/{id}/deactivate`  
+> Deja inactivo a un user. Si lo cambia o ya estaba desactivo, devuelve el recurso.  Si no existe, devuelve un mensaje de error.
+
+Ejemplo: `POST /user/1/deactive  {Informática}`
+
+ Entrada | Respuesta | Respuesta sin tema
+--|--|--
+`id: String` <br> Id del user | `CREATED (201)` | `BAD_REQUEST(400) {"error":"UserNotExistsInvalidException"}`
