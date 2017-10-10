@@ -8,15 +8,15 @@ Diagrama de la entidad:
 ![api-architecture-simulation-theme-entities](https://github.com/DavidBlasVazquez/APAW-ECP2-DavidBlas/blob/master/docs/api-architecture-simulation-theme-entities.png)
 
 # API Rest
-## Crear un usuario `POST /user`  
-> Si añade al usuario con éxito devuelve el propio recurso, pero si ya existe devuelve un error.
+## Crear un nuevo usuario `POST /user`  
+> Si añade al usuario con éxito devuelve el propio recurso, pero si ya existe devuelve un mensaje error.
 > Por defecto al ser creado el usuario queda active.
 
 Ejemplo: `POST /user  {Informática}`
 
- Entrada | Respuesta | Respuesta sin tema
+ Entrada | Respuesta | Respuesta si <br> user no es creado 
 --|--|--
-`username: String` <br> Nombre de usuario  | `CREATED (201)` | `BAD_REQUEST(400) {"error":"UserExistsInvalidException"}`
+`username: String` <br> Nombre de usuario  | `CREATED (201)` | `BAD_REQUEST(400) {"error":""} {"error":"UserIdExistsException"}`
 
 
 ## Crear un nuevo deporte `POST /sport`  
@@ -24,38 +24,38 @@ Ejemplo: `POST /user  {Informática}`
 
 Ejemplo: `POST /sport  {Informática}`
 
- Entrada | Respuesta | Respuesta sin tema
+ Entrada | Respuesta | Respuesta sin <br> sport no es creado
 --|--|--
-`sportname: String` <br> Nombre del deporte <br> `category: String` <br> Categoría del deporte | `CREATED (201)` | `BAD_REQUEST(400) {"error":"SportExistsInvalidException"}`
+`sportname: String` <br> Nombre del deporte <br> `category: String` <br> Categoría del deporte | `CREATED (201)` | `BAD_REQUEST(400) {"error":"SportIdExistsException"}`
 
-## Crear un usuario asociado a un deporte `POST /user/sport/{id}`  
-> Añade un susario asociándolo a un deporte ya existe. Si se crea devuelve el recurso, pero si ya existe devuelve un error. Por defecto al ser creado el usuario queda active.
+## Asocia un nuevo usuario con un deporte `PUT /user/{id}/sport/{id}`  
+> Asocia a un usuario ya existente con un deporte ya existente. Si se asocia devuelve el recurso, de lo contrario devuelve un mensaje de error.
 
-Ejemplo: `POST /user/sport/1  {Informática}`
+Ejemplo: `PUT /user/1/sport/1  {Informática}`
 
- Entrada | Respuesta | Respuesta sin tema
+ Entrada | Respuesta | Respuesta si <br> la asociacion no es creada <br> algún id no es entero
 --|--|--
-`username: String` <br> Nombre de usuario <br> `sportid: String` <br> id del sport | `CREATED (201)` | `BAD_REQUEST(400) {"error":"UserNotCreatedInvalidException"}`
+`username: String` <br> ID del user <br> `sportid: String` <br> Id del sport | `CREATED (201)` | `BAD_REQUEST(400) {"error":"NotAssociationException"} <br> {"error":"RequestInvalidException"}` 
 
-## Eliminar usuario `DELETE /user/{id}`  
-> Elimina un usuario mediante su id. Si lo hace, devuelve el recurso. Si no existe, devuelve un mensaje de error.
+## Muestra un usuario `GET /user/{id}`  
+> Muestra la información de un usuario por su id. Si no existe o formato invalido, devuelve un mensaje de error.
 
 Ejemplo: `POST /user/1  {Informática}`
 
- Entrada | Respuesta | Respuesta sin tema
+ Parámetros | Respuesta | Respuesta si <br> id no existe <br> id no es entero <br> resultado correcto
 --|--|--
-`id: String` <br> Id del usuario | `CREATED (201)` | `BAD_REQUEST(400) {"error":"UserNotExistsInvalidException"}`
+| `CREATED (201)` | `BAD_REQUEST(400) | {"error":"UserIdNotFoundNoException" <br> {"error":"RequestInvalidException"} <br> { "id":1, "name":"David", "active":"true", "sport":"tennis", "category":"junior" }`
 
-## Eliminar sport `DELETE /sport/{id}`  
-> Elimina un sport mediante su id. Si lo hace, devuelve el recurso. Si no existe, devuelve un mensaje de error.
+## Muestra un sport `GET /sport/{id}`  
+> Muestra la información de un sport por su id. Si no existe o formato invalido, devuelve un mensaje de error.
 
 Ejemplo: `POST /sport/1  {Informática}`
 
- Entrada | Respuesta | Respuesta sin tema
+ Parámetros | Respuesta | Respuesta si <br> id no existe <br> id no es entero <br> resultado correcto
 --|--|--
-`id: String` <br> Id del sport | `CREATED (201)` | `BAD_REQUEST(400) {"error":"SportNotExistsInvalidException"}`
+| `CREATED (201)` | `BAD_REQUEST(400) | {"error":"UserIdNotFoundNoException" <br> {"error":"RequestInvalidException"} <br> { "id":1, "sport":"tennis", "category":"junior" }`
 
-## Eliminar sport `PUT /user/{id}/deactivate`  
+## Desactiva un usuario `PUT /user/{id}/deactivate`  
 > Deja inactivo a un user. Si lo cambia o ya estaba desactivo, devuelve el recurso.  Si no existe, devuelve un mensaje de error.
 
 Ejemplo: `POST /user/1/deactive  {Informática}`
