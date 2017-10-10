@@ -25,7 +25,7 @@ Ejemplo: `POST /sport  {Informática}`
 
  Entrada | Respuesta | Respuesta sin <br> sportname no es pasado
 --|--|-- 
- `sportname: String` <br> Nombre del deporte <br> `category: String` <br> Categoría del deporte | `CREATED (201)` | `BAD_REQUEST(400) {"error":"SportNameInvalidException"}`
+ `title: String` <br> Nombre del deporte <br> `category: String` <br> Categoría del deporte | `CREATED (201)` | `BAD_REQUEST(400) {"error":"SportNameInvalidException"}`
 
 
 ## Asocia un nuevo usuario con un deporte `PUT /user/{id}/sport/{id}` 
