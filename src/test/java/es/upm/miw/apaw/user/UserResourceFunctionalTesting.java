@@ -19,7 +19,7 @@ public class UserResourceFunctionalTesting {
 	}
 	
 	@Test
-    public void testCreateSport () {
+    public void testCreateUSer () {
 		createUSer();
     }
 	
