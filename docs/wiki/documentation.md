@@ -44,7 +44,7 @@ Ejemplo: `POST /user/1  {Informática}`
 
  Parámetros | Respuesta | Respuesta si <br> id no existe <br> id no es entero <br> resultado correcto
 --|--|--
-| `CREATED (201)` | `BAD_REQUEST(400) | {"error":"UserIdNotFoundNoException" <br> {"error":"RequestInvalidException"} <br> { "id":1, "name":"David", "active":"true", "sport":"tennis", "category":"junior" }`
+| `CREATED (201)` | `BAD_REQUEST(400)` | `{"error":"UserIdNotFoundNoException" <br> {"error":"RequestInvalidException"} <br> { "id":1, "name":"David", "active":"true", "sport":"tennis", "category":"junior" }`
 
 ## Muestra un sport `GET /sport/{id}`  
 > Muestra la información de un sport por su id. Si no existe o formato invalido, devuelve un mensaje de error.
@@ -53,7 +53,7 @@ Ejemplo: `POST /sport/1  {Informática}`
 
  Parámetros | Respuesta | Respuesta si <br> id no existe <br> id no es entero <br> resultado correcto
 --|--|--
-| `CREATED (201)` | `BAD_REQUEST(400) | {"error":"UserIdNotFoundNoException" <br> {"error":"RequestInvalidException"} <br> { "id":1, "sport":"tennis", "category":"junior" }`
+| `CREATED (201)` | `BAD_REQUEST(400)` | `{"error":"UserIdNotFoundNoException" <br> {"error":"RequestInvalidException"} <br> { "id":1, "sport":"tennis", "category":"junior" }`
 
 ## Desactiva un usuario `PUT /user/{id}/deactivate`  
 > Deja inactivo a un user. Si lo cambia o ya estaba desactivo, devuelve el recurso.  Si no existe, devuelve un mensaje de error.
