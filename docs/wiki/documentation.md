@@ -45,7 +45,7 @@ Ejemplo: `GET /user/1  {Informática}`
 
 Parámetros | Respuesta | Respuesta si <br> id no existe <br> id no es entero
 --|--|--
---|`OK (200) { "id":1, "name":"David", "active":"true", "sport":"tennis", "category":"junior" }`|`BAD_REQUEST(400)`<br>`{"error":"UserIdNotFoundNoException"}`<br>`{"error":"RequestInvalidException"}`
+--|`OK (200) { "id":1, "name":"David", "active":"true" }`|`BAD_REQUEST(400)`<br>`{"error":"UserIdNotFoundNoException"}`<br>`{"error":"RequestInvalidException"}`
 
 ## Muestra un sport `GET /sport/{id}` 
 > Muestra la información de un sport por su id.
