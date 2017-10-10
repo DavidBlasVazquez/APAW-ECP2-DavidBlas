@@ -25,18 +25,18 @@ Ejemplo: `POST /sport  {Informática}`
 
  Entrada | Respuesta | Respuesta sin <br> sportname no es pasado
 --|--|-- 
- `title: String` <br> Nombre del deporte <br> `category: String` <br> Categoría del deporte | `CREATED (201)` | `BAD_REQUEST(400) {"error":"SportNameInvalidException"}`
+ `title: String` <br> Nombre del deporte <br> | `CREATED (201)` | `BAD_REQUEST(400) {"error":"SportNameInvalidException"}`
 
 
-## Asocia un nuevo usuario con un deporte `PUT /user/{id}/sport/{id}` 
+## Añadir category a un sport `PUT /sport/{id}` 
 
-> Asocia a un user ya existente con un sport ya existente.
+> Añade una categoría a un sport existente.
 
-Ejemplo: `PUT /user/1/sport/1  {Informática}`
+Ejemplo: `PUT /user/1/  {Informática}`
 
- Entrada | Respuesta | Respuesta si <br> el user no existe <br> el sport no existe <br> formato de datos inválido
---|--|-- 
- `username: String` <br> ID del user <br> `sportid: String` <br> Id del sport | `OK (200)` | `BAD_REQUEST(400)`<br> `{"error":"UserIdNotFoundException"}`<br>`{"error":"SportIdNotFoundException"}` `{"error":"RequestInvalidException"}`
+ Parámetros | Entrada | Respuesta | Respuesta si <br> el user no existe <br> el sport no existe <br> formato de datos inválido
+--|--|--|-- 
+`id: String` <br> el id del deporte | `category: String` <br> la categoría a añadir | `OK (200)` | `BAD_REQUEST(400)`<br> `{"error":"UserIdNotFoundException"}`<br>`{"error":"SportIdNotFoundException"}` `{"error":"RequestInvalidException"}`
 
 ## Muestra un usuario `GET /user/{id}` 
 > Muestra la información de un usuario por su id.
