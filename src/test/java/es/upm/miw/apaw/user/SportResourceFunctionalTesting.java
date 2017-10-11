@@ -42,7 +42,6 @@ public class SportResourceFunctionalTesting {
         String response = new HttpClientService().httpRequest(request).getBody();      
     }
     
-    @Test(expected = HttpException.class)
     public void testModifyCategoryToSport () {
     	createSport(); // It is created as junior.
         new HttpRequestBuilder().method(HttpMethod.PUT).path(SportResource.SPORT).path(SportResource.ID).expandPath("1").path(SportResource.CATEGORY).body("senior").build();
