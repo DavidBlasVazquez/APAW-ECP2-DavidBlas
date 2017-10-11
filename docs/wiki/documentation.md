@@ -25,18 +25,18 @@ Ejemplo: `POST /sport  {Informática}`
 
  Entrada | Respuesta | Respuesta sin <br> sportname no es pasado
 --|--|-- 
- `title: String` <br> Nombre del deporte <br> | `CREATED (201)` | `BAD_REQUEST(400) {"error":"SportNameInvalidException"}`
+ `title: String` <br> Nombre del deporte <br> `category: String` <br> Nombre de la categoria <br> | `CREATED (201)` | `BAD_REQUEST(400) {"error":"SportNameInvalidException"}`
 
 
-## Añadir category a un sport `PUT /sport/{id}` 
+## Modficar category a un sport `PATCH /sport/{id}/category` 
 
-> Añade una categoría a un sport existente.
+> Modifica una categoría a un sport existente.
 
-Ejemplo: `PUT /user/1/  {Informática}`
+Ejemplo: `PATCH /sport/1/category  {Informática}`
 
- Parámetros | Entrada | Respuesta | Respuesta si <br> el user no existe <br> el sport no existe <br> formato de datos inválido
---|--|--|-- 
-`id: String` <br> el id del deporte | `category: String` <br> la categoría a añadir | `OK (200)` | `BAD_REQUEST(400)`<br> `{"error":"UserIdNotFoundException"}`<br>`{"error":"SportIdNotFoundException"}` `{"error":"RequestInvalidException"}`
+ Entrada | Respuesta | Respuesta si <br> el sport no existe <br> formato de datos inválido
+--|--|-- 
+`category: String` <br> la categoría a añadir | `OK (200)` | `BAD_REQUEST(400)`<br> `{"error":"SportIdNotFoundException"}` `{"error":"RequestInvalidException"}`
 
 ## Muestra un usuario `GET /user/{id}` 
 > Muestra la información de un usuario por su id.
@@ -45,24 +45,22 @@ Ejemplo: `GET /user/1  {Informática}`
 
 Parámetros | Respuesta | Respuesta si <br> id no existe <br> id no es entero
 --|--|--
---|`OK (200) { "id":1, "name":"David", "active":"true" }`|`BAD_REQUEST(400)`<br>`{"error":"UserIdNotFoundNoException"}`<br>`{"error":"RequestInvalidException"}`
+--|`OK (200) { "id":1, "name":"David", "birthdate":"", "active":"true" , "sport":[{"title":"tennis","category":"junior"]}`|`BAD_REQUEST(400)`<br>`{"error":"UserIdNotFoundNoException"}`<br>`{"error":"RequestInvalidException"}`
 
-## Muestra un sport `GET /sport/{id}` 
-> Muestra la información de un sport por su id.
+## Asocia un sport a un user `PUT /user/{id}/sport` 
+> Asocia un sport existente a un user existente.
 
-Ejemplo: `GET /sport/1  {Informática}`
+Ejemplo: `PUT /user/1/sport  {Informática}`
 
-Parámetros | Respuesta | Respuesta si <br> id no existe <br> id no es entero 
+Entrada | Respuesta | Respuesta si <br> user no existe <br> sport existe <br> dato no valido 
 --|--|--
--- | `OK (200) { "id":1, "sport":"tennis", "category":"junior"}` | `BAD_REQUEST(400)` <br>`{"error":"SportIdNotFoundNoException"}` <br>`{"error":"RequestInvalidException"}`
+`sport: string` <br> id del sport | `OK (200)` | `BAD_REQUEST(400)` <br>`{"error":"UserIdNotFoundNoException"}` <br>`{"error":"SportIdNotFoundNoException"}` <br>`{"error":"RequestInvalidException"}`
 
+## Modifica el campo active de un usuario `PATCH /user/{id}/active` 
+> Deja activo o desativo a un user.
 
-## Desactiva un usuario `PUT /user/{id}/deactivate` 
-
-> Deja inactivo a un user.
-
-Ejemplo: `PUT /user/1/deactive  {Informática}`
+Ejemplo: `PATCH /user/1/active  {Informática}`
 
 Entrada | Respuesta | Respuesta si <br> User no existe <br> id no es entero.
 --|--|--
-`id: String` <br> Id del user | `OK (200)` | `BAD_REQUEST(400) {"error":"UserNotExistsInvalidException"}` <br>`{"error":"RequestInvalidException"}`
+`active: boolean` <br> estado del active | `OK (200)` | `BAD_REQUEST(400) {"error":"UserNotExistsInvalidException"}` <br>`{"error":"RequestInvalidException"}`
