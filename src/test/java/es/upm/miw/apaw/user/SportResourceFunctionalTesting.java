@@ -13,7 +13,7 @@ import es.upm.miw.apaw.user.http.HttpRequestBuilder;
 
 public class SportResourceFunctionalTesting {
 	private void createSport () {
-        HttpRequest request = new HttpRequestBuilder().method(HttpMethod.POST).path(SportResource.SPORT).body("sport:tennis").build();
+        HttpRequest request = new HttpRequestBuilder().method(HttpMethod.POST).path(SportResource.SPORT).body("tennis:junior").build();
         new HttpClientService().httpRequest(request);
 	}
 	
@@ -23,7 +23,7 @@ public class SportResourceFunctionalTesting {
     }
 	
     @Test(expected = HttpException.class)
-    public void testCreateSportNameEmpty() {
+    public void testCreateSportEmpty() {
         HttpRequest request = new HttpRequestBuilder().method(HttpMethod.POST).path(SportResource.SPORT).body("").build();
         new HttpClientService().httpRequest(request);
     }
@@ -43,10 +43,10 @@ public class SportResourceFunctionalTesting {
     }
     
     @Test(expected = HttpException.class)
-    public void testIAddCategoryToSport () {
-    	createSport();
-        new HttpRequestBuilder().method(HttpMethod.PUT).path(SportResource.SPORT).path(SportResource.ID).expandPath("1").body("category:junior").build();
+    public void testModifyCategoryToSport () {
+    	createSport(); // It is created as junior.
+        new HttpRequestBuilder().method(HttpMethod.PUT).path(SportResource.SPORT).path(SportResource.ID).expandPath("1").path(SportResource.CATEGORY).body("senior").build();
         HttpRequest request = new HttpRequestBuilder().method(HttpMethod.GET).path(SportResource.SPORT).path(SportResource.ID).expandPath("1").build();
-        assertEquals("{\"id\":1,\"sport\":\"tennis\",\"category\":\"junior\"}", new HttpClientService().httpRequest(request).getBody());   
+        assertEquals("{\"id\":1,\"sport\":\"tennis\",\"category\":\"senior\"}", new HttpClientService().httpRequest(request).getBody());   
     }
 }
