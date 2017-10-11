@@ -14,10 +14,15 @@ import es.upm.miw.apaw.user.http.HttpRequestBuilder;
 
 public class UserResourceFunctionalTesting {
 	private void createUSer () {
-        HttpRequest request = new HttpRequestBuilder().method(HttpMethod.POST).path(UserResource.USER).body("username:David").build();
+        HttpRequest request = new HttpRequestBuilder().method(HttpMethod.POST).path(UserResource.USER).body("David").build();
         new HttpClientService().httpRequest(request);
 	}
-	
+	    
+    private void createSport () {
+        HttpRequest request = new HttpRequestBuilder().method(HttpMethod.POST).path(SportResource.SPORT).body("tennis:junior").build();
+        new HttpClientService().httpRequest(request);
+	}
+
 	@Test
     public void testCreateUSer () {
 		createUSer();
@@ -27,7 +32,7 @@ public class UserResourceFunctionalTesting {
     public void testCreateUserNameEmpty() {
         HttpRequest request = new HttpRequestBuilder().method(HttpMethod.POST).path(UserResource.USER).body("").build();
         new HttpClientService().httpRequest(request);
-    }
+    }	
 
     @Test
     public void testReadUser () {
@@ -43,10 +48,20 @@ public class UserResourceFunctionalTesting {
         new HttpClientService().httpRequest(request).getBody();      
     }
     
+    @Test
+    public void testLinkUserToSport () {
+    	createUSer();
+    	createSport();
+        HttpRequest request = new HttpRequestBuilder().method(HttpMethod.PUT).path(UserResource.USER).path(UserResource.ID).expandPath("1").path(SportResource.SPORT).build();
+        new HttpClientService().httpRequest(request).getBody();  
+        request = new HttpRequestBuilder().method(HttpMethod.GET).path(UserResource.USER).path(UserResource.ID).expandPath("1").build();
+        assertEquals("{\"id\":1,\"username\":\"David\",\"active\":\"true\", \"sport\":[ {\"title\":\"tennis\", \"category\":\"junior\"} ] }", request);        
+    }
+    
 	@Test
-    public void testDeactiveUser () {
-		createUSer();
-		HttpRequest request = new HttpRequestBuilder().method(HttpMethod.PUT).path(UserResource.USER).path(UserResource.DEACTIVE).build();
+    public void testModifyActiveUser () {
+		createUSer(); // Users are created as true by default.
+		HttpRequest request = new HttpRequestBuilder().method(HttpMethod.PATCH).path(UserResource.USER).path(UserResource.ID).path(UserResource.ACTIVE).body("false").build();
 		new HttpClientService().httpRequest(request).getBody();
         request = new HttpRequestBuilder().method(HttpMethod.GET).path(UserResource.USER).path(UserResource.ID).expandPath("1").build();
         assertEquals("{\"id\":1,\"username\":\"David\",\"active\":\"false\"}", new HttpClientService().httpRequest(request).getBody());        	
