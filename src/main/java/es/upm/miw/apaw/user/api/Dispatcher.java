@@ -80,7 +80,7 @@ public class Dispatcher {
     }
 
     public void doDelete(HttpRequest request, HttpResponse response) {
-        responseError(response, new RequestInvalidException(request.getPath()));
+        // responseError(response, new RequestInvalidException(request.getPath()));
     }
 
 }
