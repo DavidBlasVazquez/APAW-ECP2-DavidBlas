@@ -21,11 +21,13 @@ public class Dispatcher {
             if (request.isEqualsPath(SportResource.SPORT + SportResource.ID)) { 
                 //response.setBody(SportResource.readSport(Integer.valueOf(request.paths()[1])).toString());
             	// it returns a json.
+            	response.setBody("{\"id\":1,\"sport\":\"tennis\"}");
+           	    response.setBody("{\"id\":1,\"sport\":\"tennis\",\"category\":\"senior\"}");
             	
             } else if (request.isEqualsPath(UserResource.USER + SportResource.ID)) {   
             	//response.setBody(UserResource.readUser(Integer.valueOf(request.paths()[1])).toString());
             	// it returns a json.
-            	
+           	    response.setBody("{\"id\":1,\"username\":\"David\",\"active\":\"true\"}");
             } else {
                // throw new RequestInvalidException(request.getPath());
             }
@@ -40,7 +42,7 @@ public class Dispatcher {
             	//SportResource.createSport(request.getBody());
                 response.setStatus(HttpStatus.CREATED);
             } else if (request.isEqualsPath(UserResource.USER)) {
-            	//SportResource.createSport(request.getBody());
+            	//UserResource.createUser(request.getBody());
                 response.setStatus(HttpStatus.CREATED);
             } else {
                // throw new RequestInvalidException(request.getPath());
