@@ -5,11 +5,12 @@ import es.upm.miw.apaw.user.api.resources.UserResource;
 import es.upm.miw.apaw.user.http.HttpRequest;
 import es.upm.miw.apaw.user.http.HttpResponse;
 import es.upm.miw.apaw.user.http.HttpStatus;
+import es.upm.miw.user.theme.api.resources.exceptions.RequestInvalidException;
 
 public class Dispatcher {
 
-   // private UserResource userResource = new UserResource();
-   // private SportResource sportResource = new SportResource();
+    private UserResource userResource = new UserResource();
+    private SportResource sportResource = new SportResource();
 
     private void responseError(HttpResponse response, Exception e) {
         response.setBody("{\"error\":\"" + e + "\"}");
@@ -19,16 +20,11 @@ public class Dispatcher {
     public void doGet(HttpRequest request, HttpResponse response) {
         try {
             if (request.isEqualsPath(SportResource.SPORT + SportResource.ID)) { 
-                // TODO read Sport 
-            	response.setBody("{\"id\":1,\"sport\":\"tennis\"}");
-           	    // response.setBody("{\"id\":1,\"sport\":\"tennis\",\"category\":\"senior\"}");
+            	response.setBody(sportResource.readSport(Integer.valueOf(request.getBody())));
             } else if (request.isEqualsPath(UserResource.USER + SportResource.ID)) {   
-            	// TODO read User
-           	    response.setBody("{\"id\":1,\"username\":\"David\",\"active\":\"false\"}");
-           	    // response.setBody("{\"id\":1,\"username\":\"David\",\"active\":\"true\"}");
-           	    // response.setBody("{\"id\":1,\"username\":\"David\",\"active\":\"true\", \"sport\":[ {\"title\":\"tennis\", \"category\":\"junior\"} ]}");
+            	response.setBody(userResource.readUser(Integer.valueOf(request.getBody())));
             } else {
-               // throw new RequestInvalidException(request.getPath());
+               throw new RequestInvalidException(request.getPath());
             }
         } catch (Exception e) {
             responseError(response, e);
@@ -38,13 +34,13 @@ public class Dispatcher {
     public void doPost(HttpRequest request, HttpResponse response) {
         try {
             if (request.isEqualsPath(SportResource.SPORT)) {
-            	// TODO: create sport 
+            	sportResource.createSport(request.getBody());
                 response.setStatus(HttpStatus.CREATED);
             } else if (request.isEqualsPath(UserResource.USER)) {
-            	// TODO create User 
+            	userResource.createUser(request.getBody());
                 response.setStatus(HttpStatus.CREATED);
             } else {
-               // throw new RequestInvalidException(request.getPath());
+                throw new RequestInvalidException(request.getPath());
             }
         } catch (Exception e) {
             responseError(response, e);
@@ -54,10 +50,12 @@ public class Dispatcher {
     public void doPut(HttpRequest request, HttpResponse response) {
         try {
             if (request.isEqualsPath(UserResource.USER + UserResource.ID + SportResource.SPORT)) {
-            	// TODO : link user to sport.
+            	String userId = request.getBody().split(":")[0];  // body="userId:sportId"
+                String sportId = request.getBody().split(":")[1]; 
+            	userResource.addSport(Integer.valueOf(userId), Integer.valueOf(sportId));
                 response.setStatus(HttpStatus.OK);
             } else {
-               // throw new RequestInvalidException(request.getPath());
+                throw new RequestInvalidException(request.getPath());
             }
         } catch (Exception e) {
             responseError(response, e);
@@ -67,13 +65,13 @@ public class Dispatcher {
     public void doPatch(HttpRequest request, HttpResponse response) {
     	 try {
              if (request.isEqualsPath(UserResource.USER + UserResource.ID + UserResource.ACTIVE) ) {
-            	 // TODO: modify active in user
+            	 userResource.modifyActive(Integer.valueOf(request.getBody()));
                  response.setStatus(HttpStatus.OK);
              } else if (request.isEqualsPath(SportResource.SPORT + UserResource.ID + SportResource.CATEGORY) ) {
-            	 // TODO: modify category in sport
+            	 sportResource.modifyCategory(Integer.valueOf(request.getBody()));
             	 response.setStatus(HttpStatus.OK);
              } else {
-                // throw new RequestInvalidException(request.getPath());
+                 throw new RequestInvalidException(request.getPath());
              }
          } catch (Exception e) {
              responseError(response, e);
@@ -81,7 +79,7 @@ public class Dispatcher {
     }
 
     public void doDelete(HttpRequest request, HttpResponse response) {
-        // responseError(response, new RequestInvalidException(request.getPath()));
+          responseError(response, new RequestInvalidException(request.getPath()));
     }
 
 }
