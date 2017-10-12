@@ -1,8 +1,8 @@
 package es.upm.miw.apaw.user.api.resources;
 
-import es.upm.miw.user.theme.api.resources.exceptions.SportIdNotFoundException;
-import es.upm.miw.user.theme.api.resources.exceptions.UserFieldInvalidException;
-import es.upm.miw.user.theme.api.resources.exceptions.UserIdNotFoundException;
+import es.upm.miw.user.api.resources.exceptions.SportIdNotFoundException;
+import es.upm.miw.user.api.resources.exceptions.UserFieldInvalidException;
+import es.upm.miw.user.api.resources.exceptions.UserIdNotFoundException;
 
 public class UserResource {
     public static final String USER = "/user";

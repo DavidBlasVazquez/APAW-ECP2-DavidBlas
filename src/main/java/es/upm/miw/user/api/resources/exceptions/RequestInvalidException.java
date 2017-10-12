@@ -1,4 +1,4 @@
-package es.upm.miw.user.theme.api.resources.exceptions;
+package es.upm.miw.user.api.resources.exceptions;
 
 public class RequestInvalidException extends Exception {
 	private static final long serialVersionUID = 2941400890233246479L;

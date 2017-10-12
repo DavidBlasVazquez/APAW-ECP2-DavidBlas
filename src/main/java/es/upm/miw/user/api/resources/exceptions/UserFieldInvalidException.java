@@ -1,4 +1,4 @@
-package es.upm.miw.user.theme.api.resources.exceptions;
+package es.upm.miw.user.api.resources.exceptions;
 
 public class UserFieldInvalidException extends Exception {
 	private static final long serialVersionUID = 1822612022276800199L;

@@ -1,7 +1,7 @@
 package es.upm.miw.apaw.user.api.resources;
 
-import es.upm.miw.user.theme.api.resources.exceptions.SportFieldInvalidException;
-import es.upm.miw.user.theme.api.resources.exceptions.SportIdNotFoundException;
+import es.upm.miw.user.api.resources.exceptions.SportFieldInvalidException;
+import es.upm.miw.user.api.resources.exceptions.SportIdNotFoundException;
 
 public class SportResource {
     public static final String SPORT = "/sport";
