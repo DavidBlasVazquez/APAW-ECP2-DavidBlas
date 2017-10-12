@@ -5,7 +5,8 @@ import es.upm.miw.apaw.user.api.resources.UserResource;
 import es.upm.miw.apaw.user.http.HttpRequest;
 import es.upm.miw.apaw.user.http.HttpResponse;
 import es.upm.miw.apaw.user.http.HttpStatus;
-import es.upm.miw.apaw.user.resources.exceptions.RequestInvalidException;
+import es.upm.miw.user.api.resources.exceptions.RequestInvalidException;
+
 
 public class Dispatcher {
 
