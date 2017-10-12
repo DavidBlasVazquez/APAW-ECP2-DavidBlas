@@ -4,7 +4,7 @@ import es.upm.miw.user.api.resources.exceptions.SportFieldInvalidException;
 import es.upm.miw.user.api.resources.exceptions.SportIdNotFoundException;
 
 public class SportResource {
-    public static final String SPORT = "/sport";
+    public static final String SPORT = "sport";
     public static final String CATEGORY = "/category";
     public static final String ID = "/{id}";
     
