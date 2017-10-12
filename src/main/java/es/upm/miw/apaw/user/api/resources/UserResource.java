@@ -1,5 +1,6 @@
 package es.upm.miw.apaw.user.api.resources;
 
+import es.upm.miw.apaw.user.api.dtos.UserDto;
 import es.upm.miw.user.api.resources.exceptions.SportIdNotFoundException;
 import es.upm.miw.user.api.resources.exceptions.UserFieldInvalidException;
 import es.upm.miw.user.api.resources.exceptions.UserIdNotFoundException;
@@ -16,9 +17,9 @@ public class UserResource {
         }
     }
     
-    public String readUser (int userId) throws SportIdNotFoundException {
+    public UserDto readUser (int userId) throws SportIdNotFoundException {
     	if (userId != 1)throw new SportIdNotFoundException(); 
-        return "{\"id\":1,\"username\":\"David\",\"active\":\"true\"}";
+        return new UserDto("{\"id\":1,\"username\":\"David\",\"active\":\"true\"}");
     }
     
     public void createUser(String userName) throws UserFieldInvalidException {
@@ -26,15 +27,14 @@ public class UserResource {
     	new UserIdNotFoundException(userName);
     }
     
-    public String modifyActive (int userId, boolean activeState) throws UserIdNotFoundException {
+    public UserDto modifyActive (int userId, boolean activeState) throws UserIdNotFoundException {
     	if (userId != 1 ) throw new UserIdNotFoundException();
-    		return "{\"id\":1,\"username\":\"David\",\"active\":\""+activeState+"\"}";
+        return new UserDto("{\"id\":1,\"username\":\"David\",\"active\":\""+activeState+"\"}");
     }
     
-    public String linkSportToUser (int userId, int sportId) throws UserIdNotFoundException, SportIdNotFoundException {
+    public UserDto linkSportToUser (int userId, int sportId) throws UserIdNotFoundException, SportIdNotFoundException {
     	if (userId  != 1) throw new UserIdNotFoundException();
     	if (sportId != 1) throw new SportIdNotFoundException();
-    	return "{\"id\":1,\"username\":\"David\",\"active\":\"true\", \"sport\":[ {\"title\":\"tennis\", \"category\":\"junior\"} ]}";
+    	return new UserDto("{\"id\":1,\"username\":\"David\",\"active\":\"true\", \"sport\":[ {\"title\":\"tennis\", \"category\":\"junior\"} ]}");
     }
-
 }
