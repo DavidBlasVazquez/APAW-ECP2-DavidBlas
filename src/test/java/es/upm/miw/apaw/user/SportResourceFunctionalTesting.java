@@ -32,20 +32,26 @@ public class SportResourceFunctionalTesting {
     public void testReadSport () {
     	createSport();
         HttpRequest request = new HttpRequestBuilder().method(HttpMethod.GET).path(SportResource.SPORT).path(SportResource.ID).expandPath("1").build();
-        assertEquals("{\"id\":1,\"sport\":\"tennis\"}", new HttpClientService().httpRequest(request).getBody());        
+        assertEquals("{\"id\":1,\"sport\":\"tennis\",\"category\":\"junior\"}", new HttpClientService().httpRequest(request).getBody());        
+    }
+    
+    @Test(expected = HttpException.class)
+    public void testEmptyReadSport () {
+    	createSport();
+        HttpRequest request = new HttpRequestBuilder().method(HttpMethod.GET).path(SportResource.SPORT).path(SportResource.ID).expandPath("").build();
+        assertEquals("{\"id\":1,\"sport\":\"tennis\",\"category\":\"junior\"}", new HttpClientService().httpRequest(request).getBody());        
     }
 	
     @Test(expected = HttpException.class)
     public void testIdNotFoundReadSport () {
     	createSport();
         HttpRequest request = new HttpRequestBuilder().method(HttpMethod.GET).path(SportResource.SPORT).path(SportResource.ID).expandPath("2").build();
-        String response = new HttpClientService().httpRequest(request).getBody();      
+        new HttpClientService().httpRequest(request).getBody();      
     }
-    
+    @Test
     public void testModifyCategoryToSport () {
     	createSport(); // It is created as junior.
-        new HttpRequestBuilder().method(HttpMethod.PUT).path(SportResource.SPORT).path(SportResource.ID).expandPath("1").path(SportResource.CATEGORY).body("senior").build();
-        HttpRequest request = new HttpRequestBuilder().method(HttpMethod.GET).path(SportResource.SPORT).path(SportResource.ID).expandPath("1").build();
+        HttpRequest request = new HttpRequestBuilder().method(HttpMethod.PATCH).path(SportResource.SPORT).path(SportResource.ID).expandPath("1").path(SportResource.CATEGORY).body("senior").build();
         assertEquals("{\"id\":1,\"sport\":\"tennis\",\"category\":\"senior\"}", new HttpClientService().httpRequest(request).getBody());   
     }
 }

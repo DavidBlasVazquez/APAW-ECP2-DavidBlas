@@ -47,14 +47,14 @@ Parámetros | Respuesta | Respuesta si <br> id no existe <br> id no es entero
 --|--|--
 --|`OK (200) { "id":1, "name":"David", "birthdate":"", "active":"true" , "sport":[{"title":"tennis","category":"junior"]}`|`BAD_REQUEST(400)`<br>`{"error":"UserIdNotFoundNoException"}`<br>`{"error":"RequestInvalidException"}`
 
-## Asocia un sport a un user `PUT /user/{id}/sport` 
+## Asocia un sport a un user `PUT /user/sport` 
 > Asocia un sport existente a un user existente.
 
-Ejemplo: `PUT /user/1/sport  {Informática}`
+Ejemplo: `PUT /user/sport  {Informática}`
 
 Entrada | Respuesta | Respuesta si <br> user no existe <br> sport existe <br> dato no valido 
 --|--|--
-`sport: string` <br> id del sport | `OK (200)` | `BAD_REQUEST(400)` <br>`{"error":"UserIdNotFoundNoException"}` <br>`{"error":"SportIdNotFoundNoException"}` <br>`{"error":"RequestInvalidException"}`
+`userId: string` <br> id del user <br> `sportId: string` <br> id del sport | `OK (200)` | `BAD_REQUEST(400)` <br>`{"error":"UserIdNotFoundNoException"}` <br>`{"error":"SportIdNotFoundNoException"}` <br>`{"error":"RequestInvalidException"}`
 
 ## Modifica el campo active de un usuario `PATCH /user/{id}/active` 
 > Deja activo o desativo a un user.

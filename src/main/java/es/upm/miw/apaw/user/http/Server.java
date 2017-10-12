@@ -1,6 +1,6 @@
 package es.upm.miw.apaw.user.http;
 
-import es.upm.miw.apaw.theme.api.Dispatcher;
+import es.upm.miw.apaw.user.api.Dispatcher;
 
 public class Server {
     private Dispatcher dispatcher = new Dispatcher();
