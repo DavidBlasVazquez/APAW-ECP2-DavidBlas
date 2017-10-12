@@ -49,7 +49,7 @@ public class Dispatcher {
 
     public void doPut(HttpRequest request, HttpResponse response) {
         try {
-            if (request.isEqualsPath(UserResource.USER + UserResource.ID + SportResource.SPORT)) {
+            if (request.isEqualsPath(UserResource.USER + SportResource.SPORT)) {
             	String userId = request.getBody().split(":")[0];  // body="userId:sportId"
                 String sportId = request.getBody().split(":")[1]; 
             	userResource.addSport(Integer.valueOf(userId), Integer.valueOf(sportId));
