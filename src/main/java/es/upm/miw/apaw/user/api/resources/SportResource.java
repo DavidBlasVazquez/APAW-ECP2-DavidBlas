@@ -8,9 +8,10 @@ public class SportResource {
     public static final String CATEGORY = "/category";
     public static final String ID = "/{id}";
     
-    
     public String readSport (int sportId) throws SportIdNotFoundException {
     	return "{\"id\":1,\"sport\":\"tennis\"}";
+    	// return "{\"id\":1,\"sport\":\"tennis\"}";
+   	    // return "{\"id\":1,\"sport\":\"tennis\",\"category\":\"senior\"}";
     }
     
     public void createSport(String sportName) throws SportFieldInvalidException {
