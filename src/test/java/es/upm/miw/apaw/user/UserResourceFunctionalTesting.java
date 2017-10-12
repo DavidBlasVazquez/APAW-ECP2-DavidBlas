@@ -11,6 +11,7 @@ import es.upm.miw.apaw.user.http.HttpException;
 import es.upm.miw.apaw.user.http.HttpMethod;
 import es.upm.miw.apaw.user.http.HttpRequest;
 import es.upm.miw.apaw.user.http.HttpRequestBuilder;
+import es.upm.miw.apaw.user.http.HttpResponse;
 
 public class UserResourceFunctionalTesting {
 	private void createUSer () {
@@ -53,9 +54,10 @@ public class UserResourceFunctionalTesting {
     	createUSer();
     	createSport();
         HttpRequest request = new HttpRequestBuilder().method(HttpMethod.PUT).path(UserResource.USER).path(UserResource.ID).expandPath("1").path(SportResource.SPORT).build();
-        new HttpClientService().httpRequest(request).getBody();  
+        new HttpClientService().httpRequest(request);  
         request = new HttpRequestBuilder().method(HttpMethod.GET).path(UserResource.USER).path(UserResource.ID).expandPath("1").build();
-        assertEquals("{\"id\":1,\"username\":\"David\",\"active\":\"true\", \"sport\":[ {\"title\":\"tennis\", \"category\":\"junior\"} ] }", request);        
+        String response = new HttpClientService().httpRequest(request).getBody();  
+        assertEquals("{\"id\":1,\"username\":\"David\",\"active\":\"true\", \"sport\":[ {\"title\":\"tennis\", \"category\":\"junior\"} ]}", response);        
     }
     
 	@Test

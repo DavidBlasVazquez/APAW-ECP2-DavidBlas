@@ -19,15 +19,14 @@ public class Dispatcher {
     public void doGet(HttpRequest request, HttpResponse response) {
         try {
             if (request.isEqualsPath(SportResource.SPORT + SportResource.ID)) { 
-                //response.setBody(SportResource.readSport(Integer.valueOf(request.paths()[1])).toString());
-            	// it returns a json.
+                // TODO read Sport 
             	response.setBody("{\"id\":1,\"sport\":\"tennis\"}");
-           	    response.setBody("{\"id\":1,\"sport\":\"tennis\",\"category\":\"senior\"}");
-            	
+           	    // response.setBody("{\"id\":1,\"sport\":\"tennis\",\"category\":\"senior\"}");
             } else if (request.isEqualsPath(UserResource.USER + SportResource.ID)) {   
-            	//response.setBody(UserResource.readUser(Integer.valueOf(request.paths()[1])).toString());
-            	// it returns a json.
-           	    response.setBody("{\"id\":1,\"username\":\"David\",\"active\":\"true\"}");
+            	// TODO read User
+           	    response.setBody("{\"id\":1,\"username\":\"David\",\"active\":\"false\"}");
+           	    // response.setBody("{\"id\":1,\"username\":\"David\",\"active\":\"true\"}");
+           	    // response.setBody("{\"id\":1,\"username\":\"David\",\"active\":\"true\", \"sport\":[ {\"title\":\"tennis\", \"category\":\"junior\"} ]}");
             } else {
                // throw new RequestInvalidException(request.getPath());
             }
@@ -39,10 +38,10 @@ public class Dispatcher {
     public void doPost(HttpRequest request, HttpResponse response) {
         try {
             if (request.isEqualsPath(SportResource.SPORT)) {
-            	//SportResource.createSport(request.getBody());
+            	// TODO: create sport 
                 response.setStatus(HttpStatus.CREATED);
             } else if (request.isEqualsPath(UserResource.USER)) {
-            	//UserResource.createUser(request.getBody());
+            	// TODO create User 
                 response.setStatus(HttpStatus.CREATED);
             } else {
                // throw new RequestInvalidException(request.getPath());
@@ -55,7 +54,7 @@ public class Dispatcher {
     public void doPut(HttpRequest request, HttpResponse response) {
         try {
             if (request.isEqualsPath(UserResource.USER + UserResource.ID + SportResource.SPORT)) {
-            	// TODO : Link user to sport.
+            	// TODO : link user to sport.
                 response.setStatus(HttpStatus.OK);
             } else {
                // throw new RequestInvalidException(request.getPath());
@@ -68,10 +67,10 @@ public class Dispatcher {
     public void doPatch(HttpRequest request, HttpResponse response) {
     	 try {
              if (request.isEqualsPath(UserResource.USER + UserResource.ID + UserResource.ACTIVE) ) {
-            	 // TODO: modify active on user
+            	 // TODO: modify active in user
                  response.setStatus(HttpStatus.OK);
              } else if (request.isEqualsPath(SportResource.SPORT + UserResource.ID + SportResource.CATEGORY) ) {
-            	 // TODO: modify category on sport
+            	 // TODO: modify category in sport
             	 response.setStatus(HttpStatus.OK);
              } else {
                 // throw new RequestInvalidException(request.getPath());
