@@ -9,7 +9,8 @@ public class SportResource {
     public static final String ID = "/{id}";
     
     public String readSport (int sportId) throws SportIdNotFoundException {
-    	return "{\"id\":1,\"sport\":\"tennis\"}";
+    	if (sportId != 1) throw new SportIdNotFoundException();
+    	return "{\"id\":1,\"sport\":\"tennis\",\"category\":\"junior\"}";
     }
     
     public void createSport(String sportName) throws SportFieldInvalidException {
@@ -17,8 +18,9 @@ public class SportResource {
     	new SportIdNotFoundException(sportName);
     }
     
-    public void modifyCategory (int sportId) throws SportIdNotFoundException {
-    	new SportIdNotFoundException(String.valueOf(sportId));
+    public String  modifyCategory (int sportId, String category) throws SportIdNotFoundException {
+    	if (sportId != 1) throw new SportIdNotFoundException();
+    	return "{\"id\":1,\"sport\":\"tennis\",\"category\":\"senior\"}";
     }
     private void validateField(String field) throws SportFieldInvalidException {
         if (field == null || field.isEmpty()) {

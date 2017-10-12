@@ -10,9 +10,9 @@ public class UserResource {
     public static final String ID = "/{id}";
     public static final String SPORT = "/sport";
     
-    public String readUser (int sportId) throws SportIdNotFoundException {
-   	    return "{\"id\":1,\"username\":\"David\",\"active\":\"true\"}";
-   	    //return "{\"id\":1,\"username\":\"David\",\"active\":\"true\", \"sport\":[ {\"title\":\"tennis\", \"category\":\"junior\"} ]}");
+    public String readUser (int userId) throws SportIdNotFoundException {
+    	if (userId != 1)throw new SportIdNotFoundException(); 
+        return "{\"id\":1,\"username\":\"David\",\"active\":\"true\"}";
     }
     
     public void createUser(String userName) throws UserFieldInvalidException {
@@ -20,14 +20,15 @@ public class UserResource {
     	new UserIdNotFoundException(userName);
     }
     
-    public String modifyActive (int userId) throws SportIdNotFoundException {
-    	return "{\"id\":1,\"username\":\"David\",\"active\":\"false\"}";
-    	//new SportIdNotFoundException(String.valueOf(userId));
+    public String modifyActive (int userId, boolean activeState) throws UserIdNotFoundException {
+    	if (userId != 1 ) throw new UserIdNotFoundException();
+    		return "{\"id\":1,\"username\":\"David\",\"active\":\"false\"}";
     }
     
-    public String addSport (int userId, int sportId) throws UserIdNotFoundException, SportIdNotFoundException {
+    public String linkSportToUser (int userId, int sportId) throws UserIdNotFoundException, SportIdNotFoundException {
+    	if (userId  != 1) throw new UserIdNotFoundException();
+    	if (sportId != 1) throw new SportIdNotFoundException();
     	return "{\"id\":1,\"username\":\"David\",\"active\":\"true\", \"sport\":[ {\"title\":\"tennis\", \"category\":\"junior\"} ]}";
-    	//new SportIdNotFoundException(String.valueOf(userId));
     }
     
     private void validateField(String field) throws UserFieldInvalidException {
