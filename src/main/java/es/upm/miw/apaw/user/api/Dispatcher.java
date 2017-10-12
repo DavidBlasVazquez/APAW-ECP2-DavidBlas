@@ -22,7 +22,7 @@ public class Dispatcher {
         try {
             if (request.isEqualsPath(SportResource.SPORT + SportResource.ID)) { 
             	response.setBody(sportResource.readSport(Integer.valueOf(request.getBody())));
-            } else if (request.isEqualsPath(UserResource.USER + SportResource.ID)) {   
+            } else if (request.isEqualsPath(UserResource.USER + UserResource.ID)) {   
             	response.setBody(userResource.readUser(Integer.valueOf(request.getBody())));
             } else {
                throw new RequestInvalidException(request.getPath());
@@ -50,10 +50,10 @@ public class Dispatcher {
 
     public void doPut(HttpRequest request, HttpResponse response) {
         try {
-            if (request.isEqualsPath(UserResource.USER + SportResource.SPORT)) {
-            	String userId = request.getBody().split(":")[0];  // body="userId:sportId"
-                String sportId = request.getBody().split(":")[1]; 
-            	userResource.addSport(Integer.valueOf(userId), Integer.valueOf(sportId));
+            if (request.isEqualsPath(UserResource.USER + UserResource.ID + UserResource.SPORT)) {
+            	String userId =  request.paths()[1];
+                String sportId = request.getBody(); 
+            	response.setBody(userResource.addSport(Integer.valueOf(userId), Integer.valueOf(sportId)));
                 response.setStatus(HttpStatus.OK);
             } else {
                 throw new RequestInvalidException(request.getPath());
@@ -66,7 +66,7 @@ public class Dispatcher {
     public void doPatch(HttpRequest request, HttpResponse response) {
     	 try {
              if (request.isEqualsPath(UserResource.USER + UserResource.ID + UserResource.ACTIVE) ) {
-            	 userResource.modifyActive(Integer.valueOf(request.getBody()));
+            	 response.setBody(userResource.modifyActive(Integer.valueOf(Integer.valueOf(request.paths()[1]))));
                  response.setStatus(HttpStatus.OK);
              } else if (request.isEqualsPath(SportResource.SPORT + UserResource.ID + SportResource.CATEGORY) ) {
             	 sportResource.modifyCategory(Integer.valueOf(request.getBody()));
