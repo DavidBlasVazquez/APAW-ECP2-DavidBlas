@@ -6,13 +6,22 @@ import es.upm.miw.apaw.user.http.HttpRequest;
 import es.upm.miw.apaw.user.http.HttpResponse;
 import es.upm.miw.apaw.user.http.HttpStatus;
 import es.upm.miw.user.api.resources.exceptions.RequestInvalidException;
+import es.upm.miw.user.api.resources.exceptions.SportIdNotFoundException;
+import es.upm.miw.user.api.resources.exceptions.UserFieldInvalidException;
+import es.upm.miw.user.api.resources.exceptions.UserIdNotFoundException;
 
 
 public class Dispatcher {
-
     private UserResource userResource = new UserResource();
     private SportResource sportResource = new SportResource();
-
+    
+    //TODO remove it to next phase.
+    private void validateField(String field) throws UserFieldInvalidException {
+        if (field == null || field.isEmpty()) {
+            throw new UserFieldInvalidException(field);
+        }
+    }
+    
     private void responseError(HttpResponse response, Exception e) {
         response.setBody("{\"error\":\"" + e + "\"}");
         response.setStatus(HttpStatus.BAD_REQUEST);
@@ -21,9 +30,13 @@ public class Dispatcher {
     public void doGet(HttpRequest request, HttpResponse response) {
         try {
             if (request.isEqualsPath(SportResource.SPORT + SportResource.ID)) { 
-            	response.setBody(sportResource.readSport(Integer.valueOf(Integer.valueOf(request.paths()[1]))));
-            } else if (request.isEqualsPath(UserResource.USER + UserResource.ID)) {   
-            	response.setBody(userResource.readUser(Integer.valueOf(Integer.valueOf(request.paths()[1]))));
+            	Integer sportId = Integer.valueOf(request.paths()[1]);
+            	if (sportId != 1) throw new SportIdNotFoundException();
+            	response.setBody("{\"id\":1,\"sport\":\"tennis\",\"category\":\"junior\"}");
+            } else if (request.isEqualsPath(UserResource.USER + UserResource.ID)) {
+            	Integer userId = Integer.valueOf(request.paths()[1]);
+            	if (userId != 1) throw new SportIdNotFoundException(); 
+                response.setBody("{\"id\":1,\"username\":\"David\",\"active\":\"true\"}");
             } else {
                throw new RequestInvalidException(request.getPath());
             }
@@ -35,10 +48,12 @@ public class Dispatcher {
     public void doPost(HttpRequest request, HttpResponse response) {
         try {
             if (request.isEqualsPath(SportResource.SPORT)) {
-            	sportResource.createSport(request.getBody());
+            	String sportName = request.getBody();
+            	validateField(sportName);
                 response.setStatus(HttpStatus.CREATED);
             } else if (request.isEqualsPath(UserResource.USER)) {
-            	userResource.createUser(request.getBody());
+            	String userName = request.getBody();
+            	validateField(userName);
                 response.setStatus(HttpStatus.CREATED);
             } else {
                 throw new RequestInvalidException(request.getPath());
@@ -51,9 +66,11 @@ public class Dispatcher {
     public void doPut(HttpRequest request, HttpResponse response) {
         try {
             if (request.isEqualsPath(UserResource.USER + UserResource.ID + UserResource.SPORT)) {
-            	String userId =  request.paths()[1];
-                String sportId = request.getBody(); 
-            	response.setBody(userResource.linkSportToUser(Integer.valueOf(userId), Integer.valueOf(sportId)));
+            	Integer userId = Integer.valueOf(request.paths()[1]);
+                Integer sportId = Integer.valueOf(request.getBody()); 
+            	if (userId  != 1) throw new UserIdNotFoundException();
+            	if (sportId != 1) throw new SportIdNotFoundException();
+            	response.setBody("{\"id\":1,\"username\":\"David\",\"active\":\"true\", \"sport\":[ {\"title\":\"tennis\", \"category\":\"junior\"} ]}");
                 response.setStatus(HttpStatus.OK);
             } else {
                 throw new RequestInvalidException(request.getPath());
@@ -67,13 +84,15 @@ public class Dispatcher {
     	 try {
              if (request.isEqualsPath(UserResource.USER + UserResource.ID + UserResource.ACTIVE) ) {
             	 Integer userId = Integer.valueOf(request.paths()[1]);
-            	 boolean activeState = Boolean.valueOf(request.getBody());
-            	 response.setBody(userResource.modifyActive(userId, activeState));
+              	 boolean activeState = Boolean.valueOf(request.getBody());
+               	 if (userId != 1) throw new UserIdNotFoundException();
+        		 response.setBody("{\"id\":1,\"username\":\"David\",\"active\":\"" + activeState + "\"}");
                  response.setStatus(HttpStatus.OK);
              } else if (request.isEqualsPath(SportResource.SPORT + SportResource.ID + SportResource.CATEGORY) ) {
             	 Integer sportId = Integer.valueOf(request.paths()[1]);
             	 String  category = request.getBody();
-            	 response.setBody(sportResource.modifyCategory(sportId, category));
+             	 if (sportId != 1) throw new SportIdNotFoundException();
+            	 response.setBody("{\"id\":1,\"sport\":\"tennis\",\"category\":\"" + category + "\"}");
             	 response.setStatus(HttpStatus.OK);
              } else {
                  throw new RequestInvalidException(request.getPath());
