@@ -5,13 +5,13 @@ import es.upm.miw.user.api.resources.exceptions.UserFieldInvalidException;
 import es.upm.miw.user.api.resources.exceptions.UserIdNotFoundException;
 
 public class UserResource {
-    public static final String USER = "/user";
+    public static final String USER = "user";
     public static final String ACTIVE = "/active";
     public static final String ID = "/{id}";
+    public static final String SPORT = "/sport";
     
     public String readUser (int sportId) throws SportIdNotFoundException {
-	    return "{\"id\":1,\"username\":\"David\",\"active\":\"false\"}";
-   	    //return "{\"id\":1,\"username\":\"David\",\"active\":\"true\"}";
+   	    return "{\"id\":1,\"username\":\"David\",\"active\":\"true\"}";
    	    //return "{\"id\":1,\"username\":\"David\",\"active\":\"true\", \"sport\":[ {\"title\":\"tennis\", \"category\":\"junior\"} ]}");
     }
     
@@ -20,12 +20,14 @@ public class UserResource {
     	new UserIdNotFoundException(userName);
     }
     
-    public void modifyActive (int userId) throws SportIdNotFoundException {
-    	new SportIdNotFoundException(String.valueOf(userId));
+    public String modifyActive (int userId) throws SportIdNotFoundException {
+    	return "{\"id\":1,\"username\":\"David\",\"active\":\"false\"}";
+    	//new SportIdNotFoundException(String.valueOf(userId));
     }
     
-    public void addSport (int userId, int sportId) throws UserIdNotFoundException, SportIdNotFoundException {
-    	new SportIdNotFoundException(String.valueOf(userId));
+    public String addSport (int userId, int sportId) throws UserIdNotFoundException, SportIdNotFoundException {
+    	return "{\"id\":1,\"username\":\"David\",\"active\":\"true\", \"sport\":[ {\"title\":\"tennis\", \"category\":\"junior\"} ]}";
+    	//new SportIdNotFoundException(String.valueOf(userId));
     }
     
     private void validateField(String field) throws UserFieldInvalidException {
