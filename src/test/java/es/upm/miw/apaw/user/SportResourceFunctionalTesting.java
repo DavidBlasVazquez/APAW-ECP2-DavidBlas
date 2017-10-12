@@ -28,7 +28,7 @@ public class SportResourceFunctionalTesting {
         new HttpClientService().httpRequest(request);
     }
 
-    @Test
+    @Test(expected = HttpException.class)
     public void testReadSport () {
     	createSport();
         HttpRequest request = new HttpRequestBuilder().method(HttpMethod.GET).path(SportResource.SPORT).path(SportResource.ID).expandPath("1").build();

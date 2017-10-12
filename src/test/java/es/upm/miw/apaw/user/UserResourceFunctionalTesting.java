@@ -35,7 +35,7 @@ public class UserResourceFunctionalTesting {
         new HttpClientService().httpRequest(request);
     }	
 
-    @Test
+    @Test(expected = HttpException.class)
     public void testReadUser () {
     	createUSer();
         HttpRequest request = new HttpRequestBuilder().method(HttpMethod.GET).path(UserResource.USER).path(UserResource.ID).expandPath("1").build();
@@ -50,22 +50,18 @@ public class UserResourceFunctionalTesting {
     }
     
     @Test
-    public void testLinkUserToSport () {
+    public void testAddSportToUser () {
     	createUSer();
     	createSport();
-        HttpRequest request = new HttpRequestBuilder().method(HttpMethod.PUT).path(UserResource.USER).path(UserResource.ID).expandPath("1").path(SportResource.SPORT).build();
-        new HttpClientService().httpRequest(request);  
-        request = new HttpRequestBuilder().method(HttpMethod.GET).path(UserResource.USER).path(UserResource.ID).expandPath("1").build();
+        HttpRequest request = new HttpRequestBuilder().method(HttpMethod.PUT).path(UserResource.USER).path(UserResource.ID).expandPath("1").path(UserResource.SPORT).body("1").build();
         String response = new HttpClientService().httpRequest(request).getBody();  
         assertEquals("{\"id\":1,\"username\":\"David\",\"active\":\"true\", \"sport\":[ {\"title\":\"tennis\", \"category\":\"junior\"} ]}", response);        
     }
     
 	@Test
-    public void testModifyActiveUser () {
+    public void testModifyActiveOfUser () {
 		createUSer(); // Users are created as true by default.
-		HttpRequest request = new HttpRequestBuilder().method(HttpMethod.PATCH).path(UserResource.USER).path(UserResource.ID).path(UserResource.ACTIVE).body("false").build();
-		new HttpClientService().httpRequest(request).getBody();
-        request = new HttpRequestBuilder().method(HttpMethod.GET).path(UserResource.USER).path(UserResource.ID).expandPath("1").build();
+		HttpRequest request = new HttpRequestBuilder().method(HttpMethod.PATCH).path(UserResource.USER).path(UserResource.ID).expandPath("1").path(UserResource.ACTIVE).body("false").build();
         assertEquals("{\"id\":1,\"username\":\"David\",\"active\":\"false\"}", new HttpClientService().httpRequest(request).getBody());        	
     }
 }
