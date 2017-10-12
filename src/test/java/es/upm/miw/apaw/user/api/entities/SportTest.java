@@ -1,4 +1,4 @@
-package es.upm.miw.apaw.api.entities;
+package es.upm.miw.apaw.user.api.entities;
 
 import static org.junit.Assert.*;
 
@@ -6,6 +6,7 @@ import org.junit.Before;
 import org.junit.Test;
 
 import es.upm.miw.apaw.user.api.entities.Sport;
+import es.upm.miw.apaw.user.api.entities.builder.SportBuilder;
 
 public class SportTest {
 
@@ -13,9 +14,7 @@ public class SportTest {
 	
 	@Before 
 	public void before () {
-		sport = new Sport(new Long(1));
-		sport.setTitle("tennis");
-		sport.setCategory("junior");
+		sport = new SportBuilder(new Long(1)).title("tennis").category("junior").build();
 	}
 	
 	@Test
