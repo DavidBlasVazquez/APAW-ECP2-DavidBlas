@@ -1,13 +1,41 @@
 package es.upm.miw.apaw.user.api.dtos;
 
+import java.util.Calendar;
+
+import es.upm.miw.apaw.user.api.entities.Sport;
+import es.upm.miw.apaw.user.api.entities.User;
+
 public class UserDto {
+	private Long id;
+	private String name;
+	private Calendar birthdate;
+	private boolean active; 
 	
-	private String data;
+	public UserDto () {
+		
+	}
+
+	public UserDto(User user) {
+		id = user.getId();
+		name = user.getName();
+		active = user.isActive();
+	}
 	
-	public UserDto (String data) {
-		this.data = data;
+	public Long getId () {
+		return id;
 	}
-	public String toString() {
-		return data;	
+	
+	public String getName() {
+		return name;
 	}
+	
+	public boolean isActive () {
+		return active;
+	}
+	
+	@Override
+	public String toString () {
+		return "{\"id:\" + id + \"name:\" + name + \"}";
+	}
+	    
 }

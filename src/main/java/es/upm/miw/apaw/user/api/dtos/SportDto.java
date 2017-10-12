@@ -1,12 +1,32 @@
 package es.upm.miw.apaw.user.api.dtos;
 
+import es.upm.miw.apaw.user.api.entities.Sport;
+
 public class SportDto {
-	private String data;
-	
-	public SportDto (String data) {
-		this.data = data;
+
+	private long id;
+	private String title;
+	private String category;
+
+	public SportDto () {
+
 	}
+	
+	public SportDto (Sport sport) {
+		id = sport.getId();
+		title = sport.getTitle();
+	}
+	
+	public String getTitle () {
+		return title;
+	}
+	
+	public String getCategory() {
+		return category;
+	}
+
+	@Override
 	public String toString() {
-		return data;	
+		return  "{\"id\":" + id + ",\"title\":\"" + title + "\"category\":\" + category + \"}";
 	}
 }
