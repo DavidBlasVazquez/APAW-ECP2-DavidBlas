@@ -7,7 +7,7 @@ import org.junit.runners.Suite.SuiteClasses;
 @RunWith(Suite.class)
 @SuiteClasses({
     SportResourceFunctionalTesting.class,
-    UserResourceFunctionalTesting.class
+    UserResourceFunctionalTesting.class,
 })
 public class AllUserFunctionalTestings {
 
