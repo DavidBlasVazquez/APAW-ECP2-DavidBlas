@@ -60,7 +60,7 @@ public class UserResourceFunctionalTesting {
     
 	@Test
     public void testModifyActiveOfUser () {
-		createUSer(); // Users are created as true by default.
+		createUSer(); // Users are created having the active field as true by default.
 		HttpRequest request = new HttpRequestBuilder().method(HttpMethod.PATCH).path(UserResource.USER).path(UserResource.ID).expandPath("1").path(UserResource.ACTIVE).body("false").build();
         assertEquals("{\"id\":1,\"username\":\"David\",\"active\":\"false\"}", new HttpClientService().httpRequest(request).getBody());        	
     }
