@@ -10,8 +10,6 @@ public class SportResource {
     
     public String readSport (int sportId) throws SportIdNotFoundException {
     	return "{\"id\":1,\"sport\":\"tennis\"}";
-    	// return "{\"id\":1,\"sport\":\"tennis\"}";
-   	    // return "{\"id\":1,\"sport\":\"tennis\",\"category\":\"senior\"}";
     }
     
     public void createSport(String sportName) throws SportFieldInvalidException {
