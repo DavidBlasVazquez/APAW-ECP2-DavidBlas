@@ -1,5 +1,6 @@
 package es.upm.miw.apaw.user.api.resources;
 
+import es.upm.miw.apaw.user.api.controllers.UserController;
 import es.upm.miw.apaw.user.api.dtos.UserDto;
 import es.upm.miw.user.api.resources.exceptions.SportIdNotFoundException;
 import es.upm.miw.user.api.resources.exceptions.UserFieldInvalidException;
@@ -24,7 +25,7 @@ public class UserResource {
     
     public void createUser(String userName) throws UserFieldInvalidException {
     	validateField(userName);
-    	new UserIdNotFoundException(userName);
+    	new UserController().createUser(userName);
     }
     
     public UserDto modifyActive (int userId, boolean activeState) throws UserIdNotFoundException {

@@ -2,8 +2,11 @@ package es.upm.miw.apaw.user;
 
 import static org.junit.Assert.assertEquals;
 
+import org.junit.Before;
 import org.junit.Test;
 
+import es.upm.miw.apaw.user.api.daos.DaoFactory;
+import es.upm.miw.apaw.user.api.daos.memory.DaoMemoryFactory;
 import es.upm.miw.apaw.user.api.resources.SportResource;
 import es.upm.miw.apaw.user.api.resources.UserResource;
 import es.upm.miw.apaw.user.http.HttpClientService;
@@ -13,16 +16,17 @@ import es.upm.miw.apaw.user.http.HttpRequest;
 import es.upm.miw.apaw.user.http.HttpRequestBuilder;
 
 public class UserResourceFunctionalTesting {
+	
+    @Before
+    public void before() {
+        DaoFactory.setFactory(new DaoMemoryFactory());
+    }
+    
 	private void createUser () {
         HttpRequest request = new HttpRequestBuilder().method(HttpMethod.POST).path(UserResource.USER).body("David").build();
         new HttpClientService().httpRequest(request);
 	}
 	    
-    private void createSport () {
-        HttpRequest request = new HttpRequestBuilder().method(HttpMethod.POST).path(SportResource.SPORT).body("tennis:junior").build();
-        new HttpClientService().httpRequest(request);
-	}
-
 	@Test
     public void testCreateUSer () {
 		createUser();
@@ -40,6 +44,9 @@ public class UserResourceFunctionalTesting {
         assertEquals("{\"id\":1,\"username\":\"David\",\"active\":\"true\"}", new HttpClientService().httpRequest(request).getBody());        
     }
 	
+    
+    
+    
     @Test(expected = HttpException.class)
     public void testIdNotFoundReadUser () {
     	createUser();
