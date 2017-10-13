@@ -50,16 +50,14 @@ public class Dispatcher {
  
     public void doPut(HttpRequest request, HttpResponse response) {
     	 try {
-    		 /*
              if (request.isEqualsPath(UserResource.USER + UserResource.ID + UserResource.SPORT)) {
-             	String userId =  request.paths()[1];
-                String sportId = request.getBody(); 
-             	response.setBody(userResource.linkSportToUser(Integer.valueOf(userId), Integer.valueOf(sportId)).toString());
+             	Long userId =  Long.valueOf(request.paths()[1]);
+                Long sportId = Long.valueOf(request.getBody()); 
+             	response.setBody(userResource.addSportToUser(userId, sportId).toString());
                 response.setStatus(HttpStatus.OK);
              } else {
                  throw new RequestInvalidException(request.getPath());
              }
-             */
          } catch (Exception e) {
              responseError(response, e);
          }
@@ -67,19 +65,16 @@ public class Dispatcher {
 
     public void doPatch(HttpRequest request, HttpResponse response) {
     	try {
-
             if (request.isEqualsPath(UserResource.USER + UserResource.ID + UserResource.ACTIVE) ) {
-             /*
-           	 Integer userId = Integer.valueOf(request.paths()[1]);
-           	 boolean activeState = Boolean.valueOf(request.getBody());
-           	 response.setBody(userResource.modifyActive(userId, activeState).toString());
-             response.setStatus(HttpStatus.OK);
-             */
+	           	Long userId = Long.valueOf(request.paths()[1]);
+	           	boolean active = Boolean.valueOf(request.getBody());
+	           	response.setBody(userResource.modifyActive(userId, active).toString());
+	            response.setStatus(HttpStatus.OK);
             } else if (request.isEqualsPath(SportResource.SPORT + SportResource.ID + SportResource.CATEGORY) ) {
-           	 Long sportId = Long.valueOf(request.paths()[1]);
-           	 String  category = request.getBody();
-           	 response.setBody(sportResource.modifyCategory(sportId, category).toString());
-           	 response.setStatus(HttpStatus.OK);
+            	Long userId = Long.valueOf(request.paths()[1]);
+           		String  category = request.getBody();
+           		response.setBody(sportResource.modifyCategory(userId, category).toString());
+           		response.setStatus(HttpStatus.OK);
             } else {
                 throw new RequestInvalidException(request.getPath());
             }
