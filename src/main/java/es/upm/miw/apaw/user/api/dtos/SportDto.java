@@ -15,6 +15,7 @@ public class SportDto {
 	public SportDto (Sport sport) {
 		id = sport.getId();
 		title = sport.getTitle();
+		category = sport.getCategory();
 	}
 	
 	public String getTitle () {
@@ -27,6 +28,6 @@ public class SportDto {
 
 	@Override
 	public String toString() {
-		return  "{\"id\":" + id + ",\"title\":\"" + title + "\"category\":\" + category + \"}";
+		return  "{\"id\":" + id + ",\"title\":\"" + title + "\",\"category\":\"" + category + "\"}";
 	}
 }
