@@ -13,9 +13,10 @@ public class UserTest {
 		
 		@Before 
 		public void before () {
-			user = new User(new Long(1));
+			user = new User();
 			user.setName("David");
-			user.addSport(new SportBuilder(1).title("tennis").category("junior").build());
+			user.setId(new Long(1));
+			user.addSport(new SportBuilder().id(new Long (1)).title("tennis").category("junior").build());
 		}
 		
 		@Test
