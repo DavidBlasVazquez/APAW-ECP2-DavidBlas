@@ -19,9 +19,9 @@ public class Dispatcher {
     public void doGet(HttpRequest request, HttpResponse response) {
     	try {
             if (request.isEqualsPath(SportResource.SPORT + SportResource.ID)) { 
-            	response.setBody(sportResource.readSport(Integer.valueOf(Integer.valueOf(request.paths()[1]))).toString());
+            	response.setBody(sportResource.readSport(Long.valueOf(request.paths()[1])).toString());
             } else if (request.isEqualsPath(UserResource.USER + UserResource.ID)) {   
-            	response.setBody(userResource.readUser(Integer.valueOf(Integer.valueOf(request.paths()[1]))).toString());
+            	response.setBody(userResource.readUser(Long.valueOf(request.paths()[1])).toString());
             } else {
                throw new RequestInvalidException(request.getPath());
             }
@@ -33,7 +33,9 @@ public class Dispatcher {
     public void doPost(HttpRequest request, HttpResponse response) {
     	try {
             if (request.isEqualsPath(SportResource.SPORT)) {
-            	sportResource.createSport(request.getBody());
+            	String title = request.getBody().split(":")[0]; // body="title:category"
+                String category = request.getBody().split(":")[1];
+            	sportResource.createSport(title, category);
                 response.setStatus(HttpStatus.CREATED);
             } else if (request.isEqualsPath(UserResource.USER)) {
             	userResource.createUser(request.getBody());
@@ -45,13 +47,13 @@ public class Dispatcher {
             responseError(response, e);
         }
     }
-
+ 
     public void doPut(HttpRequest request, HttpResponse response) {
     	 try {
              if (request.isEqualsPath(UserResource.USER + UserResource.ID + UserResource.SPORT)) {
-             	String userId =  request.paths()[1];
-                String sportId = request.getBody(); 
-             	response.setBody(userResource.linkSportToUser(Integer.valueOf(userId), Integer.valueOf(sportId)).toString());
+             	Long userId =  Long.valueOf(request.paths()[1]);
+                Long sportId = Long.valueOf(request.getBody()); 
+             	response.setBody(userResource.addSportToUser(userId, sportId).toString());
                 response.setStatus(HttpStatus.OK);
              } else {
                  throw new RequestInvalidException(request.getPath());
@@ -64,18 +66,19 @@ public class Dispatcher {
     public void doPatch(HttpRequest request, HttpResponse response) {
     	try {
             if (request.isEqualsPath(UserResource.USER + UserResource.ID + UserResource.ACTIVE) ) {
-           	 Integer userId = Integer.valueOf(request.paths()[1]);
-           	 boolean activeState = Boolean.valueOf(request.getBody());
-           	 response.setBody(userResource.modifyActive(userId, activeState).toString());
-             response.setStatus(HttpStatus.OK);
+	           	Long userId = Long.valueOf(request.paths()[1]);
+	           	boolean active = Boolean.valueOf(request.getBody());
+	           	response.setBody(userResource.modifyActive(userId, active).toString());
+	            response.setStatus(HttpStatus.OK);
             } else if (request.isEqualsPath(SportResource.SPORT + SportResource.ID + SportResource.CATEGORY) ) {
-           	 Integer sportId = Integer.valueOf(request.paths()[1]);
-           	 String  category = request.getBody();
-           	 response.setBody(sportResource.modifyCategory(sportId, category).toString());
-           	 response.setStatus(HttpStatus.OK);
+            	Long userId = Long.valueOf(request.paths()[1]);
+           		String  category = request.getBody();
+           		response.setBody(sportResource.modifyCategory(userId, category).toString());
+           		response.setStatus(HttpStatus.OK);
             } else {
                 throw new RequestInvalidException(request.getPath());
             }
+
         } catch (Exception e) {
             responseError(response, e);
         }
