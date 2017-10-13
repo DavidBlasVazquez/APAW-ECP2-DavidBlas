@@ -41,9 +41,12 @@ public class UserResourceFunctionalTesting {
     public void testReadUser () {
     	createUser();
         HttpRequest request = new HttpRequestBuilder().method(HttpMethod.GET).path(UserResource.USER).path(UserResource.ID).expandPath("1").build();
-        assertEquals("{\"id\":1,\"username\":\"David\",\"active\":\"true\"}", new HttpClientService().httpRequest(request).getBody());        
+        assertEquals("{\"id\":1,\"name\":\"David\",\"active\":\"true\"}", new HttpClientService().httpRequest(request).getBody());        
     }
 	
+    
+    
+    
     
     
     
@@ -53,7 +56,7 @@ public class UserResourceFunctionalTesting {
         HttpRequest request = new HttpRequestBuilder().method(HttpMethod.GET).path(UserResource.USER).path(UserResource.ID).expandPath("2").build();
         new HttpClientService().httpRequest(request).getBody();      
     }
-    
+    /*
     @Test
     public void testAddSportToUser () {
     	createUser();
@@ -62,7 +65,7 @@ public class UserResourceFunctionalTesting {
         String response = new HttpClientService().httpRequest(request).getBody();  
         assertEquals("{\"id\":1,\"username\":\"David\",\"active\":\"true\", \"sport\":[ {\"title\":\"tennis\", \"category\":\"junior\"} ]}", response);        
     }
-    
+    */
 	@Test
     public void testModifyActiveOfUser () {
 		createUser(); // Users are created having the active field as true by default.
