@@ -11,9 +11,9 @@ public class User  {
 	private Calendar birthDate;
 	private boolean active;
 	private Map<Long,Sport> sports = new HashMap<Long,Sport>();
-	public User (Long id)  {
-		assert id != null;
-		this.id = id;
+	public User (String name)  {
+		assert name != null;
+		this.name = name;
 	}
 	public Long getId() {
 		return id;

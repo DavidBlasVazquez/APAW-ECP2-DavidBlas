@@ -4,9 +4,9 @@ public class Sport {
 	private Long id;
     private String title;
 	private String category;
-	public Sport (Long id) {
-		assert id != null;
-		this.id = id;
+	public Sport (String title) {
+		assert title != null;
+		this.title= title;
 	}
 	public long getId() {
 		return id;
