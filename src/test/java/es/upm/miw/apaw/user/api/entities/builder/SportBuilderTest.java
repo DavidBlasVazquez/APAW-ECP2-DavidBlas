@@ -11,12 +11,14 @@ import es.upm.miw.apaw.user.api.entities.builder.SportBuilder;
 public class SportBuilderTest {
 	private Sport sport;
 	private SportBuilder sportBuilder;
-	private Long id = new Long(1234);
 
 	@Before
 	public void before () {
-		sport = new Sport(id);
-		sportBuilder = new SportBuilder(id);
+		sport = new Sport();
+		sport.setId(new Long(1));
+		sport.setTitle("tennis");
+		sport.setCategory("junior");
+		sportBuilder = new SportBuilder().id(new Long(1)).category("junior").title("tennis");
 	}
 	@Test
 	public void idTest() {
@@ -24,16 +26,10 @@ public class SportBuilderTest {
 	}
 	@Test
 	public void titleTest() {
-		String title = "title";
-		sport.setTitle(title);
-		sportBuilder.title(title);
 		assertEquals(sport.getTitle(), sportBuilder.build().getTitle());
 	}
 	@Test
 	public void categoryTest() {
-		String category= "category";
-		sport.setCategory(category);
-		sportBuilder.category(category);
 		assertEquals(sport.getCategory(), sportBuilder.build().getCategory());
 	}
 
