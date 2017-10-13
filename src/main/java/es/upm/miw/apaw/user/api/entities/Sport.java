@@ -4,10 +4,6 @@ public class Sport {
 	private Long id;
     private String title;
 	private String category;
-	public Sport (String title) {
-		assert title != null;
-		this.title= title;
-	}
 	public long getId() {
 		return id;
 	}

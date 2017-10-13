@@ -14,7 +14,7 @@ public class SportTest {
 	
 	@Before 
 	public void before () {
-		sport = new SportBuilder(new Long(1)).title("tennis").category("junior").build();
+		sport = new SportBuilder().id(new Long(1)).title("tennis").category("junior").build();
 	}
 	
 	@Test
