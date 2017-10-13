@@ -8,8 +8,8 @@ import es.upm.miw.apaw.user.api.entities.User;
 
 public class UserBuilder {
 	private User user;
-	public UserBuilder(long id) {
-		user = new User(id);
+	public UserBuilder() {
+		user = new User();
 	}
 	public UserBuilder name (String name) {
 		user.setName(name);
@@ -25,6 +25,10 @@ public class UserBuilder {
 	}
 	public UserBuilder sport(Sport sport) {
 		user.addSport(sport);
+		return this;
+	}
+	public UserBuilder id (Long id) {
+		user.setId(id);
 		return this;
 	}
 	public User build() {
