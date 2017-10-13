@@ -67,21 +67,23 @@ public class Dispatcher {
 
     public void doPatch(HttpRequest request, HttpResponse response) {
     	try {
-    		/*
+
             if (request.isEqualsPath(UserResource.USER + UserResource.ID + UserResource.ACTIVE) ) {
+             /*
            	 Integer userId = Integer.valueOf(request.paths()[1]);
            	 boolean activeState = Boolean.valueOf(request.getBody());
            	 response.setBody(userResource.modifyActive(userId, activeState).toString());
              response.setStatus(HttpStatus.OK);
+             */
             } else if (request.isEqualsPath(SportResource.SPORT + SportResource.ID + SportResource.CATEGORY) ) {
-           	 Integer sportId = Integer.valueOf(request.paths()[1]);
+           	 Long sportId = Long.valueOf(request.paths()[1]);
            	 String  category = request.getBody();
            	 response.setBody(sportResource.modifyCategory(sportId, category).toString());
            	 response.setStatus(HttpStatus.OK);
             } else {
                 throw new RequestInvalidException(request.getPath());
             }
-            */
+
         } catch (Exception e) {
             responseError(response, e);
         }

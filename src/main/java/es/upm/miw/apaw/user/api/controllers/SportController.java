@@ -7,6 +7,7 @@ import org.apache.logging.log4j.Logger;
 
 import es.upm.miw.apaw.user.api.daos.DaoFactory;
 import es.upm.miw.apaw.user.api.dtos.SportDto;
+import es.upm.miw.apaw.user.api.entities.Sport;
 import es.upm.miw.apaw.user.api.entities.builder.SportBuilder;
 
 public class SportController {
@@ -23,6 +24,16 @@ public class SportController {
 		public Optional<SportDto> readSport(long sportId) {
 			if (existSportId(sportId)) {
 				return Optional.of(new SportDto(DaoFactory.getFactory().getSportDao().read(sportId)));
+			} else {
+				return Optional.empty();
+			}
+		}
+
+		public Optional<SportDto> modifyCategory(Long sportId, String category) {
+			if (existSportId(sportId)) {
+				Sport sport = DaoFactory.getFactory().getSportDao().read(sportId);
+				sport.setCategory(category);
+				return Optional.of(new SportDto(sport));
 			} else {
 				return Optional.empty();
 			}

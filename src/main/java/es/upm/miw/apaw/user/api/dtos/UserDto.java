@@ -2,7 +2,6 @@ package es.upm.miw.apaw.user.api.dtos;
 
 import java.util.Calendar;
 
-import es.upm.miw.apaw.user.api.entities.Sport;
 import es.upm.miw.apaw.user.api.entities.User;
 
 public class UserDto {

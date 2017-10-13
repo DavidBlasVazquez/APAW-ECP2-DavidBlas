@@ -28,10 +28,10 @@ public class SportResource {
         Optional<SportDto> optional = new SportController().readSport(sportId);
         return optional.orElseThrow(() -> new SportIdNotFoundException(Long.toString(sportId)));
     }
-  /*
-    public SportDto  modifyCategory (int sportId, String category) throws SportIdNotFoundException {
-    	if (sportId != 1) throw new SportIdNotFoundException();
-    	return new SportDto("{\"id\":1,\"sport\":\"tennis\",\"category\":\""+category+"\"}");
+
+    public SportDto  modifyCategory (Long sportId, String category) throws SportIdNotFoundException {
+        Optional<SportDto> optional = new SportController().modifyCategory(sportId, category);
+        return optional.orElseThrow(() -> new SportIdNotFoundException(Long.toString(sportId)));
     }
-    */
+
 }

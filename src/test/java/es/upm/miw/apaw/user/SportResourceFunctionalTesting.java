@@ -57,14 +57,10 @@ public class SportResourceFunctionalTesting {
         new HttpClientService().httpRequest(request).getBody();      
     }
     
-    
-    
-    
-    
     @Test
     public void testModifyCategoryToSport () {
     	createSport(); // It is created as junior.
         HttpRequest request = new HttpRequestBuilder().method(HttpMethod.PATCH).path(SportResource.SPORT).path(SportResource.ID).expandPath("1").path(SportResource.CATEGORY).body("senior").build();
-        assertEquals("{\"id\":1,\"sport\":\"tennis\",\"category\":\"senior\"}", new HttpClientService().httpRequest(request).getBody());   
+        assertEquals("{\"id\":1,\"title\":\"tennis\",\"category\":\"senior\"}", new HttpClientService().httpRequest(request).getBody());   
     }
 }
