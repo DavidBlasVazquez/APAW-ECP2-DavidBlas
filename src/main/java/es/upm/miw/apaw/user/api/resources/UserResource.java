@@ -3,10 +3,10 @@ package es.upm.miw.apaw.user.api.resources;
 import java.util.Optional;
 
 import es.upm.miw.apaw.user.api.controllers.UserController;
+import es.upm.miw.apaw.user.api.dtos.ListSportFromUserDto;
 import es.upm.miw.apaw.user.api.dtos.UserDto;
-import es.upm.miw.user.api.resources.exceptions.SportIdNotFoundException;
-import es.upm.miw.user.api.resources.exceptions.UserFieldInvalidException;
 import es.upm.miw.user.api.resources.exceptions.UserIdNotFoundException;
+import es.upm.miw.user.api.resources.exceptions.UserFieldInvalidException;
 
 public class UserResource {
     public static final String USER = "user";
@@ -30,20 +30,14 @@ public class UserResource {
         return optional.orElseThrow(() -> new UserIdNotFoundException(Long.toString(userId)));
     }
     
-    
-    
-   /* 
-    
-    
-    public UserDto modifyActive (int userId, boolean activeState) throws UserIdNotFoundException {
-    	if (userId != 1 ) throw new UserIdNotFoundException();
-        return new UserDto("{\"id\":1,\"username\":\"David\",\"active\":\""+activeState+"\"}");
+    public UserDto  modifyActive (Long userId, boolean active) throws UserIdNotFoundException {
+        Optional<UserDto> optional = new UserController().modifyActive(userId, active);
+        return optional.orElseThrow(() -> new UserIdNotFoundException(Long.toString(userId)));
     }
-    
-    public UserDto linkSportToUser (int userId, int sportId) throws UserIdNotFoundException, SportIdNotFoundException {
-    	if (userId  != 1) throw new UserIdNotFoundException();
-    	if (sportId != 1) throw new SportIdNotFoundException();
-    	return new UserDto("{\"id\":1,\"username\":\"David\",\"active\":\"true\", \"sport\":[ {\"title\":\"tennis\", \"category\":\"junior\"} ]}");
+
+    public ListSportFromUserDto addSportToUser (Long userId, Long sportId) throws UserIdNotFoundException, UserIdNotFoundException {
+        Optional<ListSportFromUserDto> optional = new UserController().addSportToUser(userId, sportId);
+        return optional.orElseThrow(() -> new UserIdNotFoundException(Long.toString(userId)));        
     }
-    */
+
 }
