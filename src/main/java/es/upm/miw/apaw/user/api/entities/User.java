@@ -47,4 +47,8 @@ public class User  {
 		assert id != null;
 		return sports.get(id);
 	}
+	
+	public  Map<Long,Sport> getSports() {
+		return sports;
+	}
 }
